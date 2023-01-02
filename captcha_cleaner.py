@@ -3,7 +3,7 @@ import os
 import glob
 
 
-def clean_images(in_path, out_path='cleaned_captchas'):
+def clean_images(in_path, out_path='image_processing/cleaned_captchas'):
     files = glob.glob(f'{in_path}/*')
     for file in files:
         img = cv2.imread(file)
@@ -17,4 +17,4 @@ def clean_images(in_path, out_path='cleaned_captchas'):
 
 
 if __name__ == '__main__':
-    clean_images('captcha_dataset')
+    clean_images('image_processing/captcha_dataset')
