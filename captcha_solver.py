@@ -7,30 +7,29 @@ import pickle
 from captcha_cleaner import clean_images
 
 
-def quebrar_captcha():
-    # importar o modelo que a gente treinou e importar o tradutor
+def solve_captcha():
+    # imports the model and the translator
     with open("AI_training/labels_model.dat", "rb") as translate_file:
         lb = pickle.load(translate_file)
 
     model = load_model("AI_training/trained_model.hdf5")
 
-    # usar o modelo pra resolver os catpchas
+    # clean the captchas
     clean_images("captcha_in", out_path="captcha_out")
-    # ler todos os arquivos da pasta "resolver"
-    ######
+    # reads all the cleaned images inside "captcha_out" folder
     files = list(paths.list_images("captcha_out"))
     for file in files:
         img = cv2.imread(file)
         img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
         # em preto e branco
-        _, img = cv2.threshold(img, 243, 255, cv2.THRESH_BINARY_INV)
+        _, img = cv2.threshold(img, 243, 255, cv2.THRESH_BINARY)
 
-        # encontrar os contornos de cada letra
+        # finds the contours of each letter
         contours, _ = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         letters_region = []
 
-        # filtrar os contornos que são realmente de letras
+        # filters the contours that are really letters using the area
         for contour in contours:
             (x, y, width, height) = cv2.boundingRect(contour)
             area = cv2.contourArea(contour)
@@ -38,18 +37,17 @@ def quebrar_captcha():
                 letters_region.append((x, y, width, height))
 
         letters_region = sorted(letters_region, key=lambda x: x[0])
-        # desenhar os contornos e separar as letras em arquivos individuais
-        final_image = cv2.merge([img] * 3)
+        # draw the contours and splits the letters
         prediction = []
 
         for rectangle in letters_region:
             x, y, width, height = rectangle
             letter_img = img[y-2:y+height+2, x-2:x+width+2]
 
-            # dar a letra pra inteligencia artificial descobrir que letra é essa
+            # send the letter to AI
             letter_img = resize_to_fit(letter_img, 20, 20)
 
-            # tratamento para o Keras funcionar
+            # image processing
             letter_img = np.expand_dims(letter_img, axis=2)
             letter_img = np.expand_dims(letter_img, axis=0)
 
@@ -58,9 +56,9 @@ def quebrar_captcha():
             prediction.append(predicted_letter)
 
         predicted_text = "".join(prediction)
-        print(predicted_text)
-        return predicted_text
+        print(predicted_text[1:])
+        #return predicted_text[1:]
 
 
 if __name__ == "__main__":
-    quebrar_captcha()
+    solve_captcha()

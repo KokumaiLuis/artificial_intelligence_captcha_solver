@@ -14,10 +14,12 @@ resources = []
 labels = []
 image_path = "all_letters"
 
+# imports image list
 imgs = paths.list_images(image_path)
 
 for file in imgs:
     label = file.split(os.path.sep)[-2]
+    # process the image
     img = cv2.imread(file)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -31,37 +33,37 @@ for file in imgs:
 resources = np.array(resources, dtype="float") / 255
 labels = np.array(labels)
 
-# separação em dados de treino (75%) e dados de teste (25%)
+# test data (20%) and train data (80%)
 (X_train, X_test, Y_train, Y_test) = train_test_split(resources, labels, test_size=0.20, random_state=0)
 
-# Converter com one-hot encoding
+# converts with one-hot encoding
 lb = LabelBinarizer().fit(Y_train)
 Y_train = lb.transform(Y_train)
 Y_test = lb.transform(Y_test)
 
-# salvar o labelbinarizer em um arquivo com o pickle
+# saves the label binarizer in a file using pickle
 with open('labels_model.dat', 'wb') as pickle_file:
     pickle.dump(lb, pickle_file)
 
-# criar e treinar a inteligência artificial
+# creates and trains IA
 model = Sequential()
 
-# criar as camadas da rede neural
+# creates the neural network layers
 model.add(Conv2D(20, (5, 5), padding="same", input_shape=(20, 20, 1), activation="relu"))
 model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-# criar a 2ª camada
+# 2nd layer
 model.add(Conv2D(50, (5, 5), padding="same", activation="relu"))
 model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-# mais uma camada
+# 3rd layer
 model.add(Flatten())
 model.add(Dense(500, activation="relu"))
-# camada de saída
+# out layer
 model.add(Dense(26, activation="softmax"))
-# compilar todas as camadas
+# compiles all layers
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
-# treinar a inteligência artificial
+# trains AI
 model.fit(X_train, Y_train, validation_data=(X_test, Y_test), batch_size=26, epochs=10, verbose=1)
 
-# salvar o modelo em um arquivo
+# saves the model in a file hdf5
 model.save("trained_model.hdf5")

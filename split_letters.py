@@ -9,7 +9,6 @@ for file in files:
     _, img = cv2.threshold(img, 243, 255, cv2.THRESH_BINARY)
     contours, _ = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-
     letters_region = []
 
     for contour in contours:
