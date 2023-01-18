@@ -9,18 +9,14 @@ from captcha_cleaner import clean_images
 
 def solve_captcha():
     # imports the model and the translator
-    with open('C:\\Users\\lgkok\\OneDrive\\Documentos\\Studying\\github_repos\\python\\captcha_solver\\'
-              'AI_training\\labels_model.dat', 'rb') as translate_file:
+    with open('.\\AI_training\\labels_model.dat', 'rb') as translate_file:
         lb = pickle.load(translate_file)
 
-    model = load_model('C:\\Users\\lgkok\\OneDrive\\Documentos\\Studying\\github_repos\\python\\captcha_solver\\'
-                       'AI_training\\trained_model.hdf5')
+    model = load_model('.\\AI_training\\trained_model.hdf5')
 
     # clean the captchas
-    clean_images('C:\\Users\\lgkok\\OneDrive\\Documentos\\Studying\\github_repos\\python\\captcha_solver\\'
-                 'captcha_in',
-                 out_path='C:\\Users\\lgkok\\OneDrive\\Documentos\\Studying\\github_repos\\python\\captcha_solver\\'
-                          'captcha_out')
+    clean_images('.\\captcha_in',
+                 out_path='.\\captcha_out')
     # reads all the cleaned images inside 'captcha_out' folder
     files = list(paths.list_images('captcha_out'))
     for file in files:
