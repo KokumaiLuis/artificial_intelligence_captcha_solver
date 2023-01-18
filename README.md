@@ -51,7 +51,13 @@ By default, the A.I. will read the images from the "captcha_in" folder and after
 
 ❗**Important**: If the folders are not created, A.I. will search unsuccessfully for the folders and the program will fail. Make sure that these folders are created with their proper names.
 
-Also, remember to install all the modules that A.I. uses
+Also, remember to install all the modules that A.I. uses.
+
+You can find a several amount of captchas localized in "artificial_intelligence_captcha_solver/image_processing/captcha_dataset/" folder. If you want to test the app, you can simply copy any image and paste to the "artificial_intelligence_captcha_solver/captcha_in" folder (remember to create the "artificial_intelligence_captcha_solver/captcha_out" folder as well). 
+
+Once you paste the image, you can open the file "captcha_solver.py" on your IDE and run normally.
+
+Your captcha result will be printed in the output window! :)
 
 </br>
 
