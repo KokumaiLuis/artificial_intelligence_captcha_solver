@@ -13,12 +13,25 @@ This project was developed exclusively for the purpose of studying topics relate
 
 </br>
 
-## ⚙️ How It Works
-First, the captcha image is treated to reduce all imperfections and make the letters as clear as possible - with a clean image of the letters, A.I. can identify pixel fill patterns.
+## ⚙️ How Does It Work?
+This is an example of a captcha at the beginning of the process:
 
-After the image is clean, it goes to the next step: recognizing the areas with the most fill so that the parts with the most pixels are recognized as letters. The parts with the most dark pixels are outlined - this way we can separate the letters and send them one at a time to A.I. to predict their value.
+<img width="300px" src="https://user-images.githubusercontent.com/85628972/213056011-d93a7f66-88ae-458d-9cff-f0da91b575b2.png">
 
-After these steps, we just need to pass each image to the A.I. to predict its value (remembering that the A.I. has already been trained and its model is saved in the repository folders).
+First, the captcha image is treated to reduce all imperfections and make the letters as clear as possible - with a clean image of the letters, A.I. can identify pixel fill patterns:
+
+<img width="300px" src="https://user-images.githubusercontent.com/85628972/213056267-085b10ac-7013-41a7-be40-2f7bf8c97c36.png">
+
+After the image is clean, it goes to the next step: recognizing the areas with the most fill so that the parts with the most pixels are recognized as letters. The parts with the most dark pixels are outlined - this way we can separate the letters and send them one at a time to A.I. to predict their value:
+
+<img width="300px" src="https://user-images.githubusercontent.com/85628972/213056438-58fb6a1b-033e-483a-83b3-e5f998e67668.png">
+
+After these steps, we just need to pass each image to the A.I. to predict its value (remembering that the A.I. has already been trained and its model is saved in the repository folders). 
+
+Here is an example of an AI response:
+
+<img width="900px" src="https://user-images.githubusercontent.com/85628972/213060338-ee4b46e8-1d7a-4ecd-b494-7d0906e00768.png">
+
 
 </br>
 
