@@ -25,8 +25,8 @@ for file in files:
             continue
         x, y, width, height = rectangle
         letter_img = img[y-2:y+height+2, x-2:x+width+2]
-        file_name = os.path.basename(file).replace(".png", f"letter{index}.png")
+        file_name = os.path.basename(file).replace('.png', f'letter{index}.png')
         cv2.imwrite(f'image_processing/captcha_letters/{file_name}', letter_img)
         cv2.rectangle(final_image, (x - 2, y - 2), (x + width + 2, y + height + 2), (0, 255, 0), 1)
     file_name = os.path.basename(file)
-    cv2.imwrite(f"image_processing/localized_letters/{file_name}", final_image)
+    cv2.imwrite(f'image_processing/localized_letters/{file_name}', final_image)

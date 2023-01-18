@@ -12,7 +12,7 @@ from helpers import resize_to_fit
 
 resources = []
 labels = []
-image_path = "all_letters"
+image_path = 'all_letters'
 
 # imports image list
 imgs = paths.list_images(image_path)
@@ -30,7 +30,7 @@ for file in imgs:
     labels.append(label)
     resources.append(img)
 
-resources = np.array(resources, dtype="float") / 255
+resources = np.array(resources, dtype='float') / 255
 labels = np.array(labels)
 
 # test data (20%) and train data (80%)
@@ -49,21 +49,21 @@ with open('labels_model.dat', 'wb') as pickle_file:
 model = Sequential()
 
 # creates the neural network layers
-model.add(Conv2D(20, (5, 5), padding="same", input_shape=(20, 20, 1), activation="relu"))
+model.add(Conv2D(20, (5, 5), padding='same', input_shape=(20, 20, 1), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
 # 2nd layer
-model.add(Conv2D(50, (5, 5), padding="same", activation="relu"))
+model.add(Conv2D(50, (5, 5), padding='same', activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
 # 3rd layer
 model.add(Flatten())
-model.add(Dense(500, activation="relu"))
+model.add(Dense(500, activation='relu'))
 # out layer
-model.add(Dense(26, activation="softmax"))
+model.add(Dense(26, activation='softmax'))
 # compiles all layers
-model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # trains AI
 model.fit(X_train, Y_train, validation_data=(X_test, Y_test), batch_size=26, epochs=10, verbose=1)
 
 # saves the model in a file hdf5
-model.save("trained_model.hdf5")
+model.save('trained_model.hdf5')
